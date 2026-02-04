@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     // FIX: Changed { } to [ ] for the array
     allowedHosts: [
-      "blink-avi-nutten-commander.trycloudflare.com"
+      "blink-avi-nutten-commander.trycloudflare.com",
+      "connectivity-pumps-part-quality.trycloudflare.com"
     ],
     proxy: {
       '/api': {

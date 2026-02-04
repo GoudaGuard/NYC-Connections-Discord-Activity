@@ -9,9 +9,19 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^5.0.8"
+    "vite": "^7.3.1"
   },
   "dependencies": {
-    "@discord/embedded-app-sdk": "^2.4.0"
+    "@chakra-ui/react": "^3.32.0",
+    "@discord/embedded-app-sdk": "^2.4.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "framer-motion": "^6.5.1",
+    "install": "^0.13.0",
+    "lodash": "^4.17.23",
+    "motion": "^12.31.0",
+    "npm": "^11.8.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   }
 }
