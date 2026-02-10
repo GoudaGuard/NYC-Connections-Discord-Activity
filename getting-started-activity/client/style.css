@@ -26,6 +26,7 @@ body {
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  
   gap: 10px; /* Space between buttons */
   margin: 20px 0;
 }
@@ -52,10 +53,6 @@ body {
   color: rgb(255, 255, 255);
 }
 
-.word-button:hover:not(.selected) {
-  background-color: #e2e2d5;
-}
-
 /* 6. Utility Buttons (Shuffle, Submit) */
 .control-button {
   margin: 10px;
@@ -65,4 +62,32 @@ body {
   background: white;
   font-weight: bold;
   cursor: pointer;
+}
+
+.solved-categories {
+aspect-ratio: 4 / 1; 
+grid-column: 1/-1;
+  background-color: #efefe6;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.1s;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.solved-categories-title{
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.solved-categories-words{
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }

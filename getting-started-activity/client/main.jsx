@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { DiscordSDK } from "@discord/embedded-app-sdk";
 import "./style.css";
-import {useRef, useState} from "react";
+import {useRef, useState, useMemo} from "react";
 import { submitButton } from "./buttonBehavior";
 //import React, {useState} from "react";
 import { shuffle } from "lodash";
@@ -54,25 +54,20 @@ function ConnectionsGrid() {
           const green_words =["ICE", "JUICE", "KIWI", "LEMON"];
           const purple_words = ["MELON", "NUT", "OAK", "PEAR"];
           const masterList = [...yellow_words, ...blue_words, ...purple_words, ...green_words];
-          console.log("Master List Contents:" , masterList);
+          //console.log("Master List Contents:" , masterList);
           //Shuffles List of Words Displayed
-          let [displayWords, setDisplayWords] = useState(() => shuffle(masterList));
+          const [displayWords, setDisplayWords] = useState([]);
+          useMemo(() => {
+            setDisplayWords(shuffle(masterList));
+          }, []); 
           console.log("Display Words Contents:" , displayWords);
 
-          if (displayWords.length === 0) {
-            return <div>No words to display</div>;
-        }
-  
+          
   
 
   return (
     <div>
     <Grid displayWords={displayWords} setDisplayWords={setDisplayWords} handleSolve={handleSolve} />
-    
-    
-    
-    
-    
       </div>
   );
 }
