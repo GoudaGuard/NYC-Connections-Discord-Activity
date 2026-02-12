@@ -1,7 +1,13 @@
 {
   "dependencies": {
+    "concurrently": "^9.2.1",
     "framer-motion": "^12.31.0",
     "lodash": "^4.17.23",
     "react": "^19.2.4"
+  },
+  "scripts": {
+    "client": "npm run dev --prefix NYT-Connections-Discord-Activity/client",
+    "server": "npm run dev --prefix NYT-Connections-Discord-Activity/server",
+    "dev": "npx concurrently \"npm run client\" \"npm run server\""
   }
 }

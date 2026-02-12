@@ -1,0 +1,113 @@
+/*Global*/
+:root {
+  font-family: Arial, Helvetica, sans-serif; /* Simplified fonts */
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
+  min-height: 100vh;
+}
+
+/*Main Layout */
+#app {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  align-items: center;
+}
+
+/*Grid for Word Tiles */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* This prevents the grid from adding "empty" space between rows */
+  grid-auto-rows: min-content; 
+  gap: 8px;
+  width: 100%;
+  max-width: 500px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+
+}
+
+/*Word Tiles*/
+.word-button {
+  aspect-ratio: 4/2.5;
+  width:100%;
+  background-color: #efefe6;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.1s;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 5. State Classes  */
+.word-button.selected {
+  background-color: #000000; /* Darker color when selected */
+  color: rgb(255, 255, 255);
+}
+
+/* 6. Utility Buttons (Shuffle, Submit) */
+.control-button {
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid black;
+  background: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.solved-categories {
+  grid-column: span 4;
+  /* Use a fixed height that matches roughly two rows of buttons 
+     OR set it to a specific value like 80px */
+  height: 85px; 
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  background-color: #fbd96b;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  padding: 0; /* Removing padding prevents the box from growing */
+  box-sizing: border-box;
+}
+
+.solved-categories-title {
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.2; /* Tightens the spacing between lines */
+}
+
+.solved-categories-words {
+  font-size: 0.8rem;
+  margin: 2px 0 0 0;
+  font-weight: normal;
+}
+
+.notification{
+  aspect-ratio: 1/1;
+  border-radius:8px;
+  font-size: 1.2rem;
+  color:white;
+  background-color: black;
+  z-index: 1000;
+  position:fixed;
+  padding: 10px 10px
+}
