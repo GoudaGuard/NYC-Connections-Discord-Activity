@@ -1,16 +1,19 @@
+import * as Services from './services.js';
 
-const userServices= require('services.js');
 
-exports.getWords= async=> {
+
+export const getWords= (req, res)=>{
     try{
-        const res= await(services.getWords());
-        if(!res){
-        throw("Words not found")
-         }
+        const words=Services.getWords();
+        res.status(200).json({success:true, words})
     }
-    
-    catch(err){
-        console.error(err)
+    catch(error){
+        console.error("Server CRASH:", error);
+        res.status(500).json({success:false, message: error.message});
     }
-    res.json();
+}
+
+export const checkGuess=(req, res)=>{
+    const response =Services.checkGuess(req.body);
+    res.status(200).json({success:true, ...response});
 }

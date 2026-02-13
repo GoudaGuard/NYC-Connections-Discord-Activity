@@ -44,7 +44,7 @@ export default function Grid({ displayWords, setDisplayWords, handleSolve }) {
     setIsProcessing(true);
     isSubmitting.current = true;
     
-    const setIsCorrect=false; 
+    const setIsCorrect=true; 
     if(setIsCorrect){
       
       const newGrid = handleSolve(displayWords, selectedWords);

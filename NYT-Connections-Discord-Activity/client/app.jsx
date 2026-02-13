@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { DiscordSDK } from "@discord/embedded-app-sdk";
 import "./style.css";
-import {useState, useMemo} from "react";
+import {useState, useEffect} from "react";
 import { shuffle } from "lodash";
 import Grid from "./Components/Grid.jsx";
 
@@ -40,41 +40,53 @@ const handleSolve = (displayWords, selected_words) => {
   return newGrid;
 };
 
+async function getWords(){
+  const response = await fetch('http://localhost:3001/api/game/getWords');
+  const data = await response.json();
+  return data;
+
+}
+
 
 
 // --- REACT COMPONENT (The Grid) ---
 function ConnectionsGrid() {
-  const[notificationOn, setNotificationOn]= useState(visible=false, msg="");
+  
+ // const[notificationOn, setNotificationOn]= useState(visible=false, msg="");
 
-
+  /*
   const triggerNotification=(msg)=>{
     setNotificationOn(visible=true, msg=msg);
     setTimeout(()=>{
       setNotificationOn(visible=false, m)
     },1000)
   }
+    */
   
-  //Example Word Bank
-  const yellow_words = ["APPLE", "BANANA", "CHERRY", "DATE"];
-          const blue_words =[ "ELDER", "FIG", "GRAPE", "HONEY"];
-          const green_words =["ICE", "JUICE", "KIWI", "LEMON"];
-          const purple_words = ["MELON", "NUT", "OAK", "PEAR"];
-          const masterList = [...yellow_words, ...blue_words, ...purple_words, ...green_words];
+        //Example Word Bank
+        
           //console.log("Master List Contents:" , masterList);
           //Shuffles List of Words Displayed
           const [displayWords, setDisplayWords] = useState([]);
-          useMemo(() => {
-            setDisplayWords(shuffle(masterList));
-          }, []); 
-          console.log("Display Words Contents:" , displayWords);
-
-          
+        useEffect(() => {
+              const loadGameData = async () => {
+                const data = await getWords(); 
+                
+                // Check if 'data.words' exists specifically!
+                if (data && data.success && Array.isArray(data.words)) {
+                  setDisplayWords(data.words); 
+                } else {
+                  console.error("Data received but 'words' array missing:", data);
+                }
+              };
+              loadGameData();
+            }, []);
   
-
+  
   return (
     <div>
     <Grid displayWords={displayWords} setDisplayWords={setDisplayWords} handleSolve={handleSolve} />
-      <Notification word={notificationOn.visible && notificationOn.Msg}></Notification>
+      
       </div>
     
   );

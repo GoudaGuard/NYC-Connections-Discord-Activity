@@ -1,18 +1,16 @@
 import express from "express";
-import dotenv from "dotenv";
-import fetch from "node-fetch";
-dotenv.config({ path: "../.env" });
+import 'dotenv/config';
+import gameRoutes from './routes.js';
+//dotenv.config({ path: "../.env" });
+import cors from 'cors';
 
-const express = express();
+const app = express();
+app.use(express.json());
+app.use(cors());
+app.use('/api/game', gameRoutes)
+
 const port = 3001;
-const router = express.Router();
-const controller=require('controller.js')
-
-router.get('/api/getWords', controller.getWord);
-router.post('/api/checkGuess', controller.checkGuess);
- 
-express.listen(port, () => {
+app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
 
-module.exports = router;
