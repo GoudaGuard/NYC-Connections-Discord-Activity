@@ -1,7 +1,23 @@
-{
-  "dependencies": {
-    "framer-motion": "^12.31.0",
-    "lodash": "^4.17.23",
-    "react": "^19.2.4"
+  {
+    "dependencies": {
+      "cloudflared": "^0.7.1",
+      "concurrently": "^9.2.1",
+      "express": "^5.2.1",
+      "framer-motion": "^12.31.0",
+      "http-proxy-middleware": "^3.0.5",
+      "lodash": "^4.17.23",
+      "react": "^19.2.4"
+    },
+  "scripts": {
+      "dev": "vite ./client", 
+      "server": "nodemon ./server/server.js",
+      "proxy": "node ./proxy.js",
+      "tunnel": "cloudflared tunnel --url http://localhost:8080",
+      "max": "concurrently \"npm run dev\" \"npm run server\" \"npm run proxy\""
+    },
+    "devDependencies": {
+      "@vitejs/plugin-react": "^5.1.4",
+      "nodemon": "^3.1.11",
+      "vite": "^7.3.1"
+    }
   }
-}

@@ -39,8 +39,8 @@ except Exception as e:
 
 print(f"Adding Connection #{next_id} from {con_date}")
 groups = []
-for group in content.get("categories", []):
-    categ = {"level": -1, "group": group.get("title", ""), "members": []}
+for index, group in enumerate(content.get("categories", [])):
+    categ = {"level": index, "group": group.get("title", ""), "members": []}
     for member in group.get("cards", []):
         categ["members"].append(member.get("content", ""))
     groups.append(categ)

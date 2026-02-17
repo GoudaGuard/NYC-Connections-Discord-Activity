@@ -1,0 +1,14 @@
+tunnel: <YOUR_TUNNEL_ID>
+credentials-file: /path/to/your/credentials.json
+
+ingress:
+  # 1. Your Frontend (React)
+  - hostname: connections.yourdomain.com
+    service: http://localhost:5173
+
+  # 2. Your Backend (Node/Express)
+  - hostname: api-connections.yourdomain.com
+    service: http://localhost:3001
+
+  # 3. The "Catch-all" (Required)
+  - service: http_status:404
