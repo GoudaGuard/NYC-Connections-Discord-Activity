@@ -54,7 +54,7 @@ export default function WordButton({
 
   return (
       <motion.button
-        layout
+        layout="position"
         
         onClick={onSelectionChange}  
         className={`word-button ${isSelected ? "selected" : ""}`}

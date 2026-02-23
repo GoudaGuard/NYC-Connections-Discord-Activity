@@ -1,68 +1,220 @@
 {
-  "1": {
-    "lives": 3,
+  "1337979849662267533": {
+    "lives": 0,
     "history": [
       {
         "guess": [
-          "DIALECT",
-          "OEDIPUS",
-          "RINGMASTER",
-          "SUPERIORITY"
-        ],
-        "isCorrect": false,
-        "category": "KINDS OF COMPLEXES",
-        "level": 2,
-        "timestamp": "2026-02-17T11:33:22.492Z"
-      },
-      {
-        "guess": [
+          "BUZZARD",
           "CALLIOPE",
           "DIALECT",
-          "RINGMASTER",
-          "SUPERIORITY"
+          "RINGMASTER"
         ],
-        "isCorrect": false,
+        "isCorrect": true,
         "category": "STARTING WITH WAYS TO REACH SOMEONE VIA PHONE",
         "level": 3,
-        "timestamp": "2026-02-17T11:33:42.788Z"
+        "timestamp": "2026-02-21T11:16:13.087Z"
       },
       {
         "guess": [
           "ENCYCLOPEDIA",
-          "THESAURUS",
+          "OEDIPUS",
+          "SUPERIORITY",
+          "THESAURUS"
+        ],
+        "isCorrect": false,
+        "category": "REFERENCE BOOKS",
+        "level": 0,
+        "timestamp": "2026-02-21T11:16:21.498Z"
+      },
+      {
+        "guess": [
+          "ELECTRA",
+          "INFERIORITY",
+          "OEDIPUS",
+          "SUPERIORITY"
+        ],
+        "isCorrect": true,
+        "timestamp": "2026-02-22T07:30:15.315Z"
+      },
+      {
+        "guess": [
+          "BUZZARD",
+          "CALLIOPE",
+          "ECHO",
+          "REMINDER"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T08:24:06.931Z"
+      },
+      {
+        "guess": [
+          "BUZZARD",
+          "CALLIOPE",
           "TRACE",
           "VESTIGE"
         ],
         "isCorrect": false,
-        "category": "REFERENCE BOOKS",
-        "level": 0,
-        "timestamp": "2026-02-17T11:34:00.735Z"
+        "timestamp": "2026-02-22T08:40:29.716Z"
+      },
+      {
+        "guess": [
+          "BUZZARD",
+          "ECHO",
+          "ENCYCLOPEDIA",
+          "THESAURUS"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T08:41:47.900Z"
+      },
+      {
+        "guess": [
+          "BUZZARD",
+          "CALLIOPE",
+          "ENCYCLOPEDIA",
+          "THESAURUS"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T08:45:50.717Z"
+      },
+      {
+        "guess": [
+          "BUZZARD",
+          "DICTIONARY",
+          "ECHO",
+          "REMINDER"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T09:02:16.843Z"
+      },
+      {
+        "guess": [
+          "BUZZARD",
+          "ECHO",
+          "THESAURUS",
+          "TRACE"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T09:05:40.235Z"
       },
       {
         "guess": [
           "CALLIOPE",
-          "ENCYCLOPEDIA",
+          "DICTIONARY",
           "THESAURUS",
           "VESTIGE"
         ],
         "isCorrect": false,
-        "category": "REFERENCE BOOKS",
-        "level": 0,
-        "timestamp": "2026-02-17T11:35:01.229Z"
+        "timestamp": "2026-02-22T09:08:04.771Z"
       },
       {
         "guess": [
-          "DIALECT",
-          "ELECTRA",
-          "OEDIPUS",
-          "RINGMASTER"
+          "ATLAS",
+          "BUZZARD",
+          "THESAURUS",
+          "TRACE"
         ],
         "isCorrect": false,
-        "category": "KINDS OF COMPLEXES",
-        "level": 2,
-        "timestamp": "2026-02-17T11:39:13.625Z"
+        "timestamp": "2026-02-22T09:12:43.471Z"
       }
     ],
-    "solved": []
+    "solved": [
+      {
+        "category": "KINDS OF COMPLEXES",
+        "category_words": [
+          "ELECTRA",
+          "INFERIORITY",
+          "OEDIPUS",
+          "SUPERIORITY"
+        ],
+        "category_level": 2
+      }
+    ]
+  },
+  "624022634337927168": {
+    "lives": 0,
+    "history": [
+      {
+        "guess": [
+          "BLACK SHEEP",
+          "MISFIT",
+          "OUTCAST",
+          "REJECT"
+        ],
+        "isCorrect": true,
+        "timestamp": "2026-02-22T09:37:54.241Z"
+      },
+      {
+        "guess": [
+          "DISTINGUISHED",
+          "FLECKED",
+          "SALT-AND-PEPPER",
+          "SILVER"
+        ],
+        "isCorrect": true,
+        "timestamp": "2026-02-22T09:38:31.645Z"
+      },
+      {
+        "guess": [
+          "BIG STICK",
+          "BLOOM COUNTY",
+          "PEANUTS",
+          "THE FAR SIDE"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T09:38:59.159Z"
+      },
+      {
+        "guess": [
+          "BIG STICK",
+          "BLOOM COUNTY",
+          "ROUGH RIDERS",
+          "THE FAR SIDE"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T09:47:11.213Z"
+      },
+      {
+        "guess": [
+          "BIG STICK",
+          "BULL MOOSE",
+          "ROUGH RIDERS",
+          "THE FAR SIDE"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T09:47:17.871Z"
+      },
+      {
+        "guess": [
+          "BIG STICK",
+          "ROUGH RIDERS",
+          "TEDDY BEAR",
+          "THE FAR SIDE"
+        ],
+        "isCorrect": false,
+        "timestamp": "2026-02-22T09:47:22.387Z"
+      }
+    ],
+    "solved": [
+      {
+        "category": "ONE WHO DOESN'T FIT IN",
+        "category_words": [
+          "BLACK SHEEP",
+          "MISFIT",
+          "OUTCAST",
+          "REJECT"
+        ],
+        "category_level": 0
+      },
+      {
+        "category": "DESCRIPTORS FOR GRAYING HAIR",
+        "category_words": [
+          "DISTINGUISHED",
+          "FLECKED",
+          "SALT-AND-PEPPER",
+          "SILVER"
+        ],
+        "category_level": 1
+      }
+    ]
   }
 }

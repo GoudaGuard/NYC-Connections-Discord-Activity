@@ -9,7 +9,16 @@ import "../style.css";
 import { AnimatePresence } from "framer-motion";
 
 
-export default function Grid({ displayWords, setDisplayWords, solvedCategories, setSolvedCategories, lives, setLives, handleSolve, handleShuffle}) {
+export default function Grid({ displayWords, 
+                                setDisplayWords, 
+                                solvedCategories, 
+                                setSolvedCategories, 
+                                lives, 
+                                setLives, 
+                                handleSolve, 
+                                handleShuffle, 
+                                access_token}) {
+                                    
     const [selectedWords, setSelectedWords] = useState([]);
     const [isWrong, setIsWrong] = useState(false);
     //const [solvedCategories, setSolvedCategories] = useState([]);
@@ -32,7 +41,7 @@ export default function Grid({ displayWords, setDisplayWords, solvedCategories, 
         const response = await fetch('/api/game/checkGuess', {
             method: "POST",
             headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify({ words: wordStrings }),
+            body: JSON.stringify({ words: wordStrings, access_token: access_token }),
         });
         return await response.json();
     };
@@ -49,16 +58,16 @@ export default function Grid({ displayWords, setDisplayWords, solvedCategories, 
 
         setDisplayWords([]);
     };
-    useEffect(()=>{
-        if(solvedCategories?.length==3){
-           handleAutoSolveLastCategory(displayWords);
-           console.log("useEffect was called");
-        }
-        console.log("useeffect called");
-    },[solvedCategories?.length]);
+    useEffect(() => {
+    // Only auto-solve if they have 3 categories AND haven't lost the game
+    if (solvedCategories?.length === 3 && lives > 0) {
+       handleAutoSolveLastCategory(displayWords);
+    }
+    }, [solvedCategories?.length, lives]);
 
 
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
     const handleSubmit = async () => {
         //Spam Blocker
         if (isSubmitting.current || selectedWords.length !== 4) return;

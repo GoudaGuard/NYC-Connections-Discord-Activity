@@ -1,46 +1,46 @@
 [
     {
         "id": 1,
-        "date": "2026-02-15",
+        "date": "2026-02-22",
         "answers": [
             {
                 "level": 0,
-                "group": "REFERENCE BOOKS",
+                "group": "ONE WHO DOESN'T FIT IN",
                 "members": [
-                    "ATLAS",
-                    "DICTIONARY",
-                    "ENCYCLOPEDIA",
-                    "THESAURUS"
+                    "BLACK SHEEP",
+                    "MISFIT",
+                    "OUTCAST",
+                    "REJECT"
                 ]
             },
             {
                 "level": 1,
-                "group": "SOMETHING THAT BRINGS BACK MEMORIES",
+                "group": "DESCRIPTORS FOR GRAYING HAIR",
                 "members": [
-                    "ECHO",
-                    "REMINDER",
-                    "TRACE",
-                    "VESTIGE"
+                    "DISTINGUISHED",
+                    "FLECKED",
+                    "SALT-AND-PEPPER",
+                    "SILVER"
                 ]
             },
             {
                 "level": 2,
-                "group": "KINDS OF COMPLEXES",
+                "group": "CLASSIC COMIC STRIPS",
                 "members": [
-                    "ELECTRA",
-                    "INFERIORITY",
-                    "OEDIPUS",
-                    "SUPERIORITY"
+                    "BLONDIE",
+                    "BLOOM COUNTY",
+                    "PEANUTS",
+                    "THE FAR SIDE"
                 ]
             },
             {
                 "level": 3,
-                "group": "STARTING WITH WAYS TO REACH SOMEONE VIA PHONE",
+                "group": "ASSOCIATED WITH THEODORE ROOSEVELT",
                 "members": [
-                    "BUZZARD",
-                    "CALLIOPE",
-                    "DIALECT",
-                    "RINGMASTER"
+                    "BIG STICK",
+                    "BULL MOOSE",
+                    "ROUGH RIDERS",
+                    "TEDDY BEAR"
                 ]
             }
         ]
