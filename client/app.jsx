@@ -8,19 +8,26 @@ import "./style.css";
 
 const discordSdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
 let globalAccessToken = null;
+let channelID = null;
+
+const sleep = (ms)=> new Promise(resolve => setTimeout(resolve, ms));
 
 function ConnectionsGrid() {
   const [isReady, setIsReady] = useState(false);
   const [displayWords, setDisplayWords] = useState([]);
   const [solvedCategories, setSolvedCategories] = useState([]);
   const [lives, setLives] = useState(4);
+  const[notification, triggerNotification]= useState({visible:false, msg: " " });
 
-  // 1. Setup Discord SDK on mount
+
   useEffect(() => {
     const setupDiscord = async () => {
       try {
         await discordSdk.ready();
         console.log("Discord SDK is ready");
+        // Get the channel ID directly from the SDK environment
+        channelID = discordSdk.channelId;
+
 
         const { code } = await discordSdk.commands.authorize({
           client_id: import.meta.env.VITE_DISCORD_CLIENT_ID,
@@ -37,8 +44,6 @@ function ConnectionsGrid() {
         });
 
         const data = await response.json();
-        
-        // Fix: Assign to the global variable, don't use 'const' here
         globalAccessToken = data.access_token;
 
         const auth = await discordSdk.commands.authenticate({
@@ -48,11 +53,13 @@ function ConnectionsGrid() {
         if (auth == null) {
           throw new Error("Authenticate command failed");
         }
+        
+        
 
-        console.log("Discord SDK is authenticated!");
-        setIsReady(true); // Signal that we can now load game data
-
-      } catch (error) {
+        setIsReady(true);
+        
+    }
+    catch (error) {
         console.error("Failed to setup Discord SDK:", error);
       }
     };
@@ -70,7 +77,7 @@ function ConnectionsGrid() {
         const response = await fetch('/api/game/loadProgress', {
           method: "POST",
           headers: { "Content-Type": "application/json; charset=UTF-8" },
-          body: JSON.stringify({ access_token: globalAccessToken }),
+          body: JSON.stringify({ access_token: globalAccessToken, channelID:channelID }),
         });
         
         const data = await response.json();
@@ -79,6 +86,12 @@ function ConnectionsGrid() {
           setDisplayWords(data.words);
           setSolvedCategories(data.solved);
           setLives(data.lives);
+          await fetch('/api/game/sendEmbed', {
+            method: "POST",
+            headers: { "Content-Type": "application/json; charset=UTF-8" },
+            body: JSON.stringify({ access_token: globalAccessToken, channelID: channelID }),
+          });
+          console.log("Initial embed sent to Discord!");
         } else {
           console.error("Data received but 'words' array missing:", data);
         }
@@ -109,10 +122,11 @@ function ConnectionsGrid() {
     return newGrid;
   };
 
-  const handleShuffle = () => {
+  const handleShuffle = async () => {
     setDisplayWords(shuffle([...displayWords]));
-    
   };
+
+  
   const finishGame= async () =>{
       const response = await fetch('/api/game/finishGame',{
           method: "POST",
@@ -135,6 +149,11 @@ function ConnectionsGrid() {
   useEffect(()=>{
       if(lives===0){
           setTimeout(()=>{
+          triggerNotification({visible:true, msg:"Nice Try..."});
+          sleep(500);
+          triggerNotification({visible:true, msg:"loser"});
+          sleep(500)
+          triggerNotification({visible:false, msg:""});
           finishGame();
           }, 1500);
       }
@@ -143,7 +162,7 @@ function ConnectionsGrid() {
 
 
 
-  // Optional: Show a loading screen while Discord connects
+
   if (!isReady) {
     return <div>Connecting to Discord...</div>;
   }
@@ -165,6 +184,8 @@ function ConnectionsGrid() {
         handleSolve={handleSolve}
         handleShuffle={handleShuffle}
         access_token={globalAccessToken}
+        notification={notification}
+        triggerNotification={triggerNotification}
       />
     </div>
   );

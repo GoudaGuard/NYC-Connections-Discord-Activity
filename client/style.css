@@ -64,19 +64,18 @@ body {
 }
 
 .game-container {
-    position: relative; /* Essential! This pins the notification inside here */
+    position: relative; 
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 600px; /* Or whatever your grid width is */
-    margin: 20 auto;
-    min-height: 100vh;
-    padding-top:20%;
-    padding-bottom: 0px;
-    border-color: red;
-    border-width: 10px;
+    max-width: 400px; 
+    margin: 0 auto;
+    padding-top: 5%; /* Adjusted from 20% to prevent pushing grid off-screen */
+    
 }
+
+
 
 /*Grid for Word Tiles */
 .grid {
@@ -89,7 +88,7 @@ body {
   max-width: 500px;
   justify-content: center;
   align-items: center;
-  margin: 20px auto;
+  margin: 5px auto;
   
 
 }
@@ -134,22 +133,16 @@ body {
 }
 
 .solved-categories {
-  grid-column: span 4;
-  /* Use a fixed height that matches roughly two rows of buttons 
-     OR set it to a specific value like 80px */
-  height: 85px; 
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  
-  background-color: #fbd96b;
-  border-radius: 6px;
-  margin: 4px;
-  padding: 0; /* Removing padding prevents the box from growing */
-  box-sizing: border-box;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+width: 100%;
+    min-height: 80px; /* Matches visual weight of grid rows */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2px;
 }
 
 .solved-categories-title {
@@ -214,4 +207,8 @@ body {
   background-color: #5a5a5a; /* A soft gray/black */
   border-radius: 50%;
   display: inline-block;
+}
+
+.control-container{
+  margin: 10px auto;
 }

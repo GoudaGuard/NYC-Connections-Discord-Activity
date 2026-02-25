@@ -1,220 +1,116 @@
 {
-  "1337979849662267533": {
-    "lives": 0,
-    "history": [
-      {
-        "guess": [
-          "BUZZARD",
-          "CALLIOPE",
-          "DIALECT",
-          "RINGMASTER"
+  "624022634337927168": [
+    {
+      "date": "2026-02-24",
+      "gameProgressforDate": {
+        "lives": 3,
+        "history": [
+          {
+            "guess": [
+              "BONES",
+              "CORAL",
+              "SHELLS",
+              "TEETH"
+            ],
+            "isCorrect": true,
+            "timestamp": "2026-02-25T06:58:11.655Z"
+          },
+          {
+            "guess": [
+              "BALANCE",
+              "LASER",
+              "MILLER",
+              "TARTAN"
+            ],
+            "isCorrect": false,
+            "timestamp": "2026-02-25T06:59:21.400Z"
+          }
         ],
-        "isCorrect": true,
-        "category": "STARTING WITH WAYS TO REACH SOMEONE VIA PHONE",
-        "level": 3,
-        "timestamp": "2026-02-21T11:16:13.087Z"
-      },
-      {
-        "guess": [
-          "ENCYCLOPEDIA",
-          "OEDIPUS",
-          "SUPERIORITY",
-          "THESAURUS"
-        ],
-        "isCorrect": false,
-        "category": "REFERENCE BOOKS",
-        "level": 0,
-        "timestamp": "2026-02-21T11:16:21.498Z"
-      },
-      {
-        "guess": [
-          "ELECTRA",
-          "INFERIORITY",
-          "OEDIPUS",
-          "SUPERIORITY"
-        ],
-        "isCorrect": true,
-        "timestamp": "2026-02-22T07:30:15.315Z"
-      },
-      {
-        "guess": [
-          "BUZZARD",
-          "CALLIOPE",
-          "ECHO",
-          "REMINDER"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T08:24:06.931Z"
-      },
-      {
-        "guess": [
-          "BUZZARD",
-          "CALLIOPE",
-          "TRACE",
-          "VESTIGE"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T08:40:29.716Z"
-      },
-      {
-        "guess": [
-          "BUZZARD",
-          "ECHO",
-          "ENCYCLOPEDIA",
-          "THESAURUS"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T08:41:47.900Z"
-      },
-      {
-        "guess": [
-          "BUZZARD",
-          "CALLIOPE",
-          "ENCYCLOPEDIA",
-          "THESAURUS"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T08:45:50.717Z"
-      },
-      {
-        "guess": [
-          "BUZZARD",
-          "DICTIONARY",
-          "ECHO",
-          "REMINDER"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T09:02:16.843Z"
-      },
-      {
-        "guess": [
-          "BUZZARD",
-          "ECHO",
-          "THESAURUS",
-          "TRACE"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T09:05:40.235Z"
-      },
-      {
-        "guess": [
-          "CALLIOPE",
-          "DICTIONARY",
-          "THESAURUS",
-          "VESTIGE"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T09:08:04.771Z"
-      },
-      {
-        "guess": [
-          "ATLAS",
-          "BUZZARD",
-          "THESAURUS",
-          "TRACE"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T09:12:43.471Z"
+        "solved": [
+          {
+            "category": "CALCIUM-BASED STRUCTURES",
+            "category_words": [
+              "BONES",
+              "CORAL",
+              "SHELLS",
+              "TEETH"
+            ],
+            "category_level": 0
+          }
+        ]
       }
-    ],
-    "solved": [
-      {
-        "category": "KINDS OF COMPLEXES",
-        "category_words": [
-          "ELECTRA",
-          "INFERIORITY",
-          "OEDIPUS",
-          "SUPERIORITY"
+    }
+  ],
+  "1337979849662267533": [
+    {
+      "date": "2026-02-24",
+      "gameProgressforDate": {
+        "lives": 2,
+        "history": [
+          {
+            "guess": [
+              "BALANCE",
+              "JIM",
+              "LASER",
+              "TRACTOR"
+            ],
+            "isCorrect": true,
+            "timestamp": "2026-02-25T00:14:57.000Z"
+          },
+          {
+            "guess": [
+              "BONES",
+              "CORAL",
+              "MILLER",
+              "SHAW"
+            ],
+            "isCorrect": false,
+            "timestamp": "2026-02-25T00:15:16.008Z"
+          },
+          {
+            "guess": [
+              "BONES",
+              "CORAL",
+              "SHELLS",
+              "TEETH"
+            ],
+            "isCorrect": true,
+            "timestamp": "2026-02-25T00:33:32.070Z"
+          },
+          {
+            "guess": [
+              "CHEKHOV",
+              "MILLER",
+              "SCOTTIE",
+              "THISTLE"
+            ],
+            "isCorrect": false,
+            "timestamp": "2026-02-25T00:33:44.458Z"
+          }
         ],
-        "category_level": 2
+        "solved": [
+          {
+            "category": "___ BEAM",
+            "category_words": [
+              "BALANCE",
+              "JIM",
+              "LASER",
+              "TRACTOR"
+            ],
+            "category_level": 3
+          },
+          {
+            "category": "CALCIUM-BASED STRUCTURES",
+            "category_words": [
+              "BONES",
+              "CORAL",
+              "SHELLS",
+              "TEETH"
+            ],
+            "category_level": 0
+          }
+        ]
       }
-    ]
-  },
-  "624022634337927168": {
-    "lives": 0,
-    "history": [
-      {
-        "guess": [
-          "BLACK SHEEP",
-          "MISFIT",
-          "OUTCAST",
-          "REJECT"
-        ],
-        "isCorrect": true,
-        "timestamp": "2026-02-22T09:37:54.241Z"
-      },
-      {
-        "guess": [
-          "DISTINGUISHED",
-          "FLECKED",
-          "SALT-AND-PEPPER",
-          "SILVER"
-        ],
-        "isCorrect": true,
-        "timestamp": "2026-02-22T09:38:31.645Z"
-      },
-      {
-        "guess": [
-          "BIG STICK",
-          "BLOOM COUNTY",
-          "PEANUTS",
-          "THE FAR SIDE"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T09:38:59.159Z"
-      },
-      {
-        "guess": [
-          "BIG STICK",
-          "BLOOM COUNTY",
-          "ROUGH RIDERS",
-          "THE FAR SIDE"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T09:47:11.213Z"
-      },
-      {
-        "guess": [
-          "BIG STICK",
-          "BULL MOOSE",
-          "ROUGH RIDERS",
-          "THE FAR SIDE"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T09:47:17.871Z"
-      },
-      {
-        "guess": [
-          "BIG STICK",
-          "ROUGH RIDERS",
-          "TEDDY BEAR",
-          "THE FAR SIDE"
-        ],
-        "isCorrect": false,
-        "timestamp": "2026-02-22T09:47:22.387Z"
-      }
-    ],
-    "solved": [
-      {
-        "category": "ONE WHO DOESN'T FIT IN",
-        "category_words": [
-          "BLACK SHEEP",
-          "MISFIT",
-          "OUTCAST",
-          "REJECT"
-        ],
-        "category_level": 0
-      },
-      {
-        "category": "DESCRIPTORS FOR GRAYING HAIR",
-        "category_words": [
-          "DISTINGUISHED",
-          "FLECKED",
-          "SALT-AND-PEPPER",
-          "SILVER"
-        ],
-        "category_level": 1
-      }
-    ]
-  }
+    }
+  ]
 }

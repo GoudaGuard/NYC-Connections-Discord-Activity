@@ -4,6 +4,8 @@ import gameRoutes from './routes.js';
 
 import cors from 'cors';
 
+import { autoScrape } from "./scraper.js";
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -12,5 +14,6 @@ app.use('/game', gameRoutes)
 const port = 3001;
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
+  autoScrape();
 });
 

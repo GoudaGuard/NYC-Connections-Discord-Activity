@@ -17,7 +17,9 @@ export default function Grid({ displayWords,
                                 setLives, 
                                 handleSolve, 
                                 handleShuffle, 
-                                access_token}) {
+                                access_token,
+                                notification,
+                                triggerNotification    }) {
                                     
     const [selectedWords, setSelectedWords] = useState([]);
     const [isWrong, setIsWrong] = useState(false);
@@ -25,7 +27,7 @@ export default function Grid({ displayWords,
     const [isProcessing, setIsProcessing] = useState(false);
     const [isExiting, setIsExiting] = useState(false);
     const isSubmitting = useRef(false);
-    const[notification, triggerNotification]= useState({visible:false, msg: " " });
+    
     
 
     const handleToggleWord = (word) => {
@@ -128,15 +130,14 @@ export default function Grid({ displayWords,
         }
     };
 
+ 
+
     console.log("Solved categories after" ,solvedCategories);
     return (
         <div className="game-container">
             <h1>Connections</h1>
             {notification.visible && <Notification msg={notification.msg}></Notification>}
-            <div className="grid">
-                <AnimatePresence>
-                
-                {solvedCategories?.map((category, index) => (
+             {solvedCategories?.map((category, index) => (
                     <SolvedCategory
                         key={`solved-${index}`} 
                         category={category}
@@ -144,6 +145,10 @@ export default function Grid({ displayWords,
                         words={category.category_words}
                     />
                 ))}
+            <div className="grid">
+                <AnimatePresence>
+                
+               
 
                 {/* Pure string mapping with index-based keys */}
                 {displayWords.map((word, index) => (
