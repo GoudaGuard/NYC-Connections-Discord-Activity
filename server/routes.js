@@ -12,5 +12,5 @@ router.post('/loadProgress', Controller.loadProgress);
 router.post('/token', Controller.getToken);
 router.post('/finishGame',Controller.finishGame);
 //router.post('/sendEmbed', Controller.sendEmbed);
-router.post('/interactionVerify', verifyKeyMiddleware(process.env.DISCORD_PUBLIC_KEY), Controller.interactionVerify);
+
 export default router;

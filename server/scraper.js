@@ -1,6 +1,14 @@
 import fs from 'fs';
 import cron from 'node-cron';
 import dotenv from "dotenv"
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const SESSION_FILE = path.join(__dirname, 'connections.json');
+
+
 dotenv.config({ path: "./.env" });
 
 
@@ -11,7 +19,6 @@ console.log("Webhook URL Length:", DEVWEBHOOK?.length);
 console.log("Webhook starts with https:", DEVWEBHOOK?.startsWith('https'));
 
 console.log(DEVWEBHOOK);
-const SESSION_FILE = './connections.json';
 const maxAttempts = 3;
 let currentAttempts=0;
 const attemptDelay=120000;
@@ -37,9 +44,12 @@ async function scrapeConnections(){
     const latestPuzzle={};
     latestPuzzle.id= connections.length > 0 ? connections[connections.length-1].id + 1 : 1;
 
-    const today =  new Date();
-    latestPuzzle.date=  today.toISOString().slice(0,10);
+    const date =  new Date();
+    latestPuzzle.date=  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     
+
+    console.log(connections[connections.length-1].date);
+    console.log(latestPuzzle.date);
     if(connections && connections[connections.length-1].date === latestPuzzle.date){
         console.log("Puzzle Already stored in Datebase, Exiting Now");
         return;
@@ -96,10 +106,10 @@ async function scrapeConnections(){
 
 export async function autoScrape() {
     console.log("Starting Scraper Automation Timer...");
-    
-    cron.schedule('5 0 * * *', async () => {
+    //await scrapeConnections();
+    cron.schedule('40 0 * * *', async () => {
         try {
-            console.log("It's 8:07 PM! Fetching today's puzzle...");
+            console.log("Fetching today's puzzle...");
             await scrapeConnections();
             console.log("Daily update complete.");
         } catch (err) {
@@ -109,4 +119,4 @@ export async function autoScrape() {
 }
 
 
-autoScrape().catch(err => console.error("Failed to initialize cron:", err));
+//autoScrape().catch(err => console.error("Failed to initialize cron:", err));

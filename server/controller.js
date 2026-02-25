@@ -71,17 +71,37 @@ export const sendEmbed = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
-*/
-export const interactionVerify = async(req, res) =>{
-    const interaction = req.body;
-
-    if(interaction.type ===1){
-        res.send({type:1});
+*/export const interactionVerify = async(req, res) => {
+    // 1. MUST PARSE THE RAW BODY TO SEE DATA
+    let interaction;
+    try {
+        const bodyString = req.body.toString();
+        console.log("📥 RAW DATA RECEIVED:", bodyString); // This MUST show up
+        interaction = JSON.parse(bodyString);
+    } catch (err) {
+        console.error("❌ PARSE ERROR:", err.message);
+        return res.status(400).send("Bad Request");
     }
 
-    if(interaction.type === 2){
-        const {channel_ID, token} = interaction;
-        res.send({type:5});
-        await imageGen.processGridUpdate(channel_ID, token);
+    console.log(`🔔 INTERACTION TYPE: ${interaction.type}`);
+
+    if (interaction.type === 1) {
+        console.log("✅ Handshake PING successful");
+        return res.send({ type: 1 });
     }
-}
+
+    if (interaction.type === 2) {
+        console.log("🕹️ Command Detected:", interaction.data?.name);
+        
+        // Immediate response so Discord doesn't timeout
+        res.send({ type: 5 }); 
+
+        try {
+            const userID = interaction.member?.user?.id || interaction.user?.id;
+            await imageGen.processGridUpdate(interaction.channel_id, interaction.token, null, userID);
+            console.log("🎨 Image Gen Triggered");
+        } catch (error) {
+            console.error("❌ Image Gen Error:", error);
+        }
+    }
+};

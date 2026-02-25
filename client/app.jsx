@@ -34,7 +34,7 @@ function ConnectionsGrid() {
           response_type: "code",
           state: "",
           prompt: "none",
-          scope: ["identify", "guilds", "applications.commands"],
+          scope: ["identify", "guilds", "applications.commands", "webhook.incoming"],
         });
 
         const response = await fetch("/api/game/token", {
@@ -54,8 +54,6 @@ function ConnectionsGrid() {
           throw new Error("Authenticate command failed");
         }
         
-        
-
         setIsReady(true);
         
     }
@@ -86,11 +84,7 @@ function ConnectionsGrid() {
           setDisplayWords(data.words);
           setSolvedCategories(data.solved);
           setLives(data.lives);
-          await fetch('/api/game/sendEmbed', {
-            method: "POST",
-            headers: { "Content-Type": "application/json; charset=UTF-8" },
-            body: JSON.stringify({ access_token: globalAccessToken, channelID: channelID }),
-          });
+          
           console.log("Initial embed sent to Discord!");
         } else {
           console.error("Data received but 'words' array missing:", data);
@@ -187,7 +181,9 @@ function ConnectionsGrid() {
         notification={notification}
         triggerNotification={triggerNotification}
       />
+      <button onClick={testDMMessage}>Test DM Message</button>
     </div>
+    
   );
 }
 

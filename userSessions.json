@@ -39,6 +39,35 @@
           }
         ]
       }
+    },
+    {
+      "date": "2026-02-25",
+      "gameProgressforDate": {
+        "lives": 2,
+        "history": [
+          {
+            "guess": [
+              "BASIC",
+              "FOSTER",
+              "NAPKIN",
+              "PRINCIPAL"
+            ],
+            "isCorrect": false,
+            "timestamp": "2026-02-25T10:23:44.292Z"
+          },
+          {
+            "guess": [
+              "DEAN",
+              "FOSTER",
+              "NAPKIN",
+              "PRINCIPAL"
+            ],
+            "isCorrect": false,
+            "timestamp": "2026-02-25T10:23:52.164Z"
+          }
+        ],
+        "solved": []
+      }
     }
   ],
   "1337979849662267533": [

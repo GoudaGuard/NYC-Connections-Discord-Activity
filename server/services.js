@@ -9,14 +9,10 @@ const SESSION_FILE = './userSessions.json';
 //Receives Client Side Code and OAUTH SCOPES
 //Fetches ACCESS_TOKEN from DISCORD OAUTH endpoint and return to client side for DISCORD_SDK INITIALIZATION
 export const getToken = async (code) => {
-    //const controller = new AbortController();
-    //const timeout = setTimeout(() => controller.abort(), 8000); 
-
     try {
         const response = await fetch(`https://discord.com/api/oauth2/token`, {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-         
             body: new URLSearchParams({
                 client_id: process.env.VITE_DISCORD_CLIENT_ID,
                 client_secret: process.env.DISCORD_CLIENT_SECRET,
@@ -25,7 +21,6 @@ export const getToken = async (code) => {
             }),
         });
 
-        //clearTimeout(timeout);
         const data = await response.json();
         
         if (!response.ok) {
@@ -33,9 +28,33 @@ export const getToken = async (code) => {
             throw new Error(data.error_description || "Failed to get token");
         }
 
+        // --- NEW WEBHOOK LOGIC START ---
+        // When you authorize with 'webhook.incoming' scope, 
+        // Discord includes a webhook object in this response.
+        if (data.webhook && data.webhook.url) {
+            console.log("🚀 Webhook received for DM:", data.webhook.url);
+            
+            // TEST: Fire a message into the DM immediately to prove it works
+            try {
+                await fetch(data.webhook.url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: "✅ Connection Successful! The Activity is now authorized to post in this DM.",
+                    }),
+                });
+            } catch (webhookErr) {
+                console.error("Failed to send test webhook message:", webhookErr);
+            }
+            
+            // FUTURE STEP: You should save data.webhook.url to your userSessions.json 
+            // here so you can use it later to send the grid image.
+        }
+        // --- NEW WEBHOOK LOGIC END ---
+
         return data.access_token;
     } catch (err) {
-        //clearTimeout(timeout);
+        console.error("Token Exchange Error:", err);
         throw err;
     }
 };
@@ -63,7 +82,7 @@ export const authenticateUser = async (access_token) => {
     if (!sessionData[userID]) sessionData[userID] = [];
     const userHistory = sessionData[userID];
 
-    // FIX: Look for today's entry anywhere in the array, not just the last index
+
     let currentEntry = userHistory.find(entry => entry.date === dateString);
 
     if (!currentEntry) {
