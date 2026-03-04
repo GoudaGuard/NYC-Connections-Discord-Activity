@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 app.use((req, res, next) => {
-    console.log(`[Proxy] Incoming: ${req.url}`);
+    //console.log(`[Proxy] Incoming: ${req.url}`);
     next();
 });
 

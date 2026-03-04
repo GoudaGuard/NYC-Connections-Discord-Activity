@@ -1,4 +1,4 @@
-import { rmSync } from 'fs';
+import { access, rmSync } from 'fs';
 import * as Services from './services.js';
 import * as imageGen from './image_gen.js';
 import dotenv from "dotenv";
@@ -47,8 +47,9 @@ export const loadProgress= async (req,res)=>{
 
 export const getToken=async(req,res)=>{
     try{
-        const response= await Services.getToken(req.body.code);
-        res.status(200).json({success:true, access_token:response.access_token, webhookURL:response.webhookURL});
+        const access_token = await Services.getToken(req.body.code);
+        console.log("Access token received:", access_token ? "present" : "missing");
+        res.status(200).json({success:true, access_token});
     }
     catch(error){
         console.error("Server CRASh:", error);
@@ -92,30 +93,36 @@ export const interactionVerify = async(req, res) => {
     }
 
     if (interaction.type === 2) {
-        console.log("Interaction Type: Activity Launch");
-        res.send({
-            type: 4, 
-            data: {
-                content: "🎮 **Connections: Ready to Play?**",
-                components: [{
-                    type: 1,
-                    components: [{
-                        type: 2,
-                        style: 1,
-                        label: "Play Now",
-                        url: `https://discord.com/activities/${process.env.VITE_DISCORD_CLIENT_ID}`
-                    }]
-                }]
-            }
-        });
- 
- 
+        const token = interaction.token;
+        const application_ID = interaction.application_id;
+        const channel_ID =  interaction.channel_id;
+        const user_ID = interaction.member?.user?.id || interaction.user?.id;
+        //console.log("📥 FULL INTERACTION:", JSON.stringify(interaction, null, 2));
+        console.log("Token: ", token);
+        console.log("appID: ", application_ID);
+        console.log("chanID: ", channel_ID);
+        console.log("userID: ", user_ID);
 
+        res.send({
+            type: 12,
+            data: { flags: 0 }
+        });
+
+        try{
+            console.log("Attempting to call function to process Grid image");
+            await imageGen.processGridUpdate(token, user_ID);
+        }
+        catch(error){
+            console.log("Couldn't load image: ", error);
+        }
+ 
+        /*
          try {
             const userID = interaction.member?.user?.id || interaction.user?.id;
             await imageGen.processGridUpdate(interaction.channel_id, interaction.token, null, userID);
         } catch (error) {
             console.error("Image Gen Error:", error);
         }
+            */
     }
 };

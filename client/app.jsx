@@ -36,7 +36,7 @@ function ConnectionsGrid() {
           response_type: "code",
           state: "",
           prompt: "none",
-          scope: ["identify", "guilds", "applications.commands", "webhook.incoming"],
+          scope: ["identify", "guilds", "applications.commands"], //Temporarily Moved Webhook out
           
         });
 

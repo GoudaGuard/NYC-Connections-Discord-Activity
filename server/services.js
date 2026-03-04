@@ -10,7 +10,7 @@ const SESSION_FILE = './userSessions.json';
 //Receives Client Side Code and OAUTH SCOPES
 //Fetches ACCESS_TOKEN from DISCORD OAUTH endpoint and return to client side for DISCORD_SDK INITIALIZATION
 export const getToken = async (code) => {
-    
+    console.log(code);
     try {
         const response = await fetch(`https://discord.com/api/oauth2/token`, {
             method: "POST",
@@ -20,7 +20,7 @@ export const getToken = async (code) => {
                 client_secret: process.env.DISCORD_CLIENT_SECRET,
                 grant_type: "authorization_code",
                 code,
-                redirect_uri: "https://ppm-additionally-bar-collectible.trycloudflare.com/api/game/token"
+                //redirect_uri: "https://ppm-additionally-bar-collectible.trycloudflare.com/api/game/token"
             }),
         });
 
@@ -31,12 +31,14 @@ export const getToken = async (code) => {
             console.log("client secret ", process.env.DISCORD_CLIENT_SECRET, "Client id", process.env.VITE_DISCORD_CLIENT_ID);
             throw new Error(data.error_description || "Failed to get token");
         }
-
+        console.log(data.access_token);
+        /*
+        console.log(data.webhook.url);
         if(data.webhook){
             console.log("Received Webhook URL:", data.webhook.url);
             return {access_token: data.access_token, webhookURL: data.webhook.url};
         }
-
+        */
         return data.access_token;
     } catch (err) {
         console.error("Token Exchange Error:", err);
@@ -90,7 +92,7 @@ export const loadProgress = async (access_token, channelID) => {
     const solvedWords = progress.solved.flatMap(s => s.category_words);
 
     try{
-    processGridUpdate(channelID, userID);
+    //processGridUpdate(channelID, userID);
     console.log("Called ProcessGridUpdate from LoadPrgoress");
     }
     catch(error){
