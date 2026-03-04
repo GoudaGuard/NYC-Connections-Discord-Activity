@@ -2,13 +2,14 @@ import fs from "fs";
 import dotenv from "dotenv";
 import gameData from './connections.json' with { type: 'json' };
 
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "./.env", override: true });
 const SESSION_FILE = './userSessions.json';
 
 
 //Receives Client Side Code and OAUTH SCOPES
 //Fetches ACCESS_TOKEN from DISCORD OAUTH endpoint and return to client side for DISCORD_SDK INITIALIZATION
 export const getToken = async (code) => {
+    
     try {
         const response = await fetch(`https://discord.com/api/oauth2/token`, {
             method: "POST",
@@ -25,6 +26,7 @@ export const getToken = async (code) => {
         
         if (!response.ok) {
             console.error("Discord Token Error:", data);
+            console.log("client secret ", process.env.DISCORD_CLIENT_SECRET, "Client id", process.env.VITE_DISCORD_CLIENT_ID);
             throw new Error(data.error_description || "Failed to get token");
         }
 

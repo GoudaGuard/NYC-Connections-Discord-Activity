@@ -34,7 +34,7 @@ function ConnectionsGrid() {
           response_type: "code",
           state: "",
           prompt: "none",
-          scope: ["identify", "guilds", "applications.commands", "webhook.incoming"],
+          scope: ["identify", "guilds", "applications.commands"],
         });
 
         const response = await fetch("/api/game/token", {
@@ -181,7 +181,7 @@ function ConnectionsGrid() {
         notification={notification}
         triggerNotification={triggerNotification}
       />
-      <button onClick={testDMMessage}>Test DM Message</button>
+
     </div>
     
   );

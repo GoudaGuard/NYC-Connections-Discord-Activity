@@ -6,7 +6,7 @@ import { verifyKeyMiddleware } from 'discord-interactions';
 import * as Controller from './controller.js';
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ override: true });
 
 const app = express();
 app.use(cors());
@@ -16,12 +16,14 @@ app.use(cors());
 // server.js (Port 3001)
 // server.js
 // This catches the request whether the proxy keeps or strips the /api prefix
+/*
 app.post(
     ['/api/interactionVerify', '/interactionVerify'], 
     express.raw({ type: 'application/json' }), 
     verifyKeyMiddleware(process.env.DISCORD_PUBLIC_KEY), 
     Controller.interactionVerify
 );
+*/
 
 app.use(express.json());
 

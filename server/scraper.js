@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const SESSION_FILE = path.join(__dirname, 'connections.json');
 
 
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "./.env", override: true });
 
 
 console.log("All available keys:", Object.keys(process.env).filter(key => key.includes('BOT')));
