@@ -1,6 +1,7 @@
 import fs from "fs";
 import dotenv from "dotenv";
 import gameData from './connections.json' with { type: 'json' };
+import {processGridUpdate} from './image_gen.js'
 
 dotenv.config({ path: "./.env", override: true });
 const SESSION_FILE = './userSessions.json';
@@ -19,6 +20,7 @@ export const getToken = async (code) => {
                 client_secret: process.env.DISCORD_CLIENT_SECRET,
                 grant_type: "authorization_code",
                 code,
+                redirect_uri: "https://ppm-additionally-bar-collectible.trycloudflare.com/api/game/token"
             }),
         });
 
@@ -30,29 +32,10 @@ export const getToken = async (code) => {
             throw new Error(data.error_description || "Failed to get token");
         }
 
-        // --- NEW WEBHOOK LOGIC START ---
-        // When you authorize with 'webhook.incoming' scope, 
-        // Discord includes a webhook object in this response.
-        if (data.webhook && data.webhook.url) {
-            console.log("🚀 Webhook received for DM:", data.webhook.url);
-            
-            // TEST: Fire a message into the DM immediately to prove it works
-            try {
-                await fetch(data.webhook.url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        content: "✅ Connection Successful! The Activity is now authorized to post in this DM.",
-                    }),
-                });
-            } catch (webhookErr) {
-                console.error("Failed to send test webhook message:", webhookErr);
-            }
-            
-            // FUTURE STEP: You should save data.webhook.url to your userSessions.json 
-            // here so you can use it later to send the grid image.
+        if(data.webhook){
+            console.log("Received Webhook URL:", data.webhook.url);
+            return {access_token: data.access_token, webhookURL: data.webhook.url};
         }
-        // --- NEW WEBHOOK LOGIC END ---
 
         return data.access_token;
     } catch (err) {
@@ -96,15 +79,23 @@ export const authenticateUser = async (access_token) => {
         fs.writeFileSync(SESSION_FILE, JSON.stringify(sessionData, null, 2));
     }
 
-    return { userID, sessionData, currentEntry };
+    return { userID, sessionData, currentEntry};
 };
 
-export const loadProgress = async (access_token) => {
-    const { currentEntry } = await authenticateUser(access_token);
+export const loadProgress = async (access_token, channelID) => {
+    const { currentEntry, userID} = await authenticateUser(access_token);
     const progress = currentEntry.gameProgressforDate;
     
     const wordBank = getWords();
     const solvedWords = progress.solved.flatMap(s => s.category_words);
+
+    try{
+    processGridUpdate(channelID, userID);
+    console.log("Called ProcessGridUpdate from LoadPrgoress");
+    }
+    catch(error){
+        console.log("couldn't call processgridupdate from loadprogress.")
+    }
 
     return {
         words: wordBank.filter(word => !solvedWords.includes(word)),

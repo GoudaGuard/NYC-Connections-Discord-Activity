@@ -16,14 +16,17 @@ app.use(cors());
 // server.js (Port 3001)
 // server.js
 // This catches the request whether the proxy keeps or strips the /api prefix
-/*
+app.use((req, res, next) => {
+  console.log(`Incoming ${req.method} request to ${req.url}`);
+  next();
+});
+
 app.post(
     ['/api/interactionVerify', '/interactionVerify'], 
-    express.raw({ type: 'application/json' }), 
     verifyKeyMiddleware(process.env.DISCORD_PUBLIC_KEY), 
     Controller.interactionVerify
 );
-*/
+
 
 app.use(express.json());
 

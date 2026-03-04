@@ -72,6 +72,25 @@
     {
       "date": "2026-03-03",
       "gameProgressforDate": {
+        "lives": 3,
+        "history": [
+          {
+            "guess": [
+              "ALKALINE",
+              "BASIC",
+              "DECLAN",
+              "HARDEN"
+            ],
+            "isCorrect": false,
+            "timestamp": "2026-03-04T05:06:08.572Z"
+          }
+        ],
+        "solved": []
+      }
+    },
+    {
+      "date": "2026-03-04",
+      "gameProgressforDate": {
         "lives": 4,
         "history": [],
         "solved": []

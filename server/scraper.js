@@ -106,7 +106,7 @@ async function scrapeConnections(){
 
 export async function autoScrape() {
     console.log("Starting Scraper Automation Timer...");
-    //await scrapeConnections();
+    await scrapeConnections();
     cron.schedule('40 0 * * *', async () => {
         try {
             console.log("Fetching today's puzzle...");
@@ -119,4 +119,4 @@ export async function autoScrape() {
 }
 
 
-//autoScrape().catch(err => console.error("Failed to initialize cron:", err));
+autoScrape().catch(err => console.error("Failed to initialize cron:", err));

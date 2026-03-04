@@ -9,6 +9,8 @@ import "./style.css";
 const discordSdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
 let globalAccessToken = null;
 let channelID = null;
+let webhookURL=null;
+
 
 const sleep = (ms)=> new Promise(resolve => setTimeout(resolve, ms));
 
@@ -34,7 +36,8 @@ function ConnectionsGrid() {
           response_type: "code",
           state: "",
           prompt: "none",
-          scope: ["identify", "guilds", "applications.commands"],
+          scope: ["identify", "guilds", "applications.commands", "webhook.incoming"],
+          
         });
 
         const response = await fetch("/api/game/token", {
@@ -45,6 +48,7 @@ function ConnectionsGrid() {
 
         const data = await response.json();
         globalAccessToken = data.access_token;
+        webhookURL = data.webhookURL;
 
         const auth = await discordSdk.commands.authenticate({
           access_token: globalAccessToken,
@@ -78,8 +82,16 @@ function ConnectionsGrid() {
           body: JSON.stringify({ access_token: globalAccessToken, channelID:channelID }),
         });
         
+        //WEBHOOK CHECK
         const data = await response.json();
-        
+        console.log("webhook url: ", webhookURL);
+        const bluh = await fetch(webhookURL,{ 
+          method:"POST",  
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: "Cheese " })
+      });
+      console.log("test message sent");
+
         if (data && data.success && Array.isArray(data.words)) {
           setDisplayWords(data.words);
           setSolvedCategories(data.solved);

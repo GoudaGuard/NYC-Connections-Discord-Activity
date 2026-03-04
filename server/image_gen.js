@@ -2,52 +2,55 @@ import { createCanvas } from 'canvas';
 import fs from 'fs';
 import path from 'path'; // Added missing import
 import gameData from './connections.json' with { type: 'json' };
-
-export async function processGridUpdate(channel_ID, token = null, messageId = null, userID) {
-    const timeStamp = Date.now();
+export async function processGridUpdate(channelID, userID) {
+    // 1. Pull the session to get the last message ID
+    const sessionPath = path.resolve('./userSessions.json');
+    const sessionData = JSON.parse(fs.readFileSync(sessionPath, 'utf8') || '{}');
+    const userSession = sessionData[userID]?.[sessionData[userID].length - 1];
+    
+    const webhookURL ="https://discordapp.com/api/webhooks/1475708359712702598/a7kCtOD6ENYl8qa2mB0YhppVCI7DJvO4cJZyY7vNoMKh0U6UgYHFBFnMOx-h3zwOqL-q"
     const buffer = await generateGrid(userID);
-    const fileName = `grid_${timeStamp}.png`;
+    const fileName = `grid_${Date.now()}.png`;
 
     const formData = new FormData();
     const imageFile = new Blob([buffer], { type: 'image/png' });
     formData.append('files[0]', imageFile, fileName);
 
-    if (token) {
-        formData.append('payload_json', JSON.stringify({
-            content: "Here is your grid!",
-            attachments: [{ id: 0, filename: fileName }]
-        }));
-        
-        // ADDED THE MISSING FETCH CALL
-        const response = await fetch(`https://discord.com/api/v10/webhooks/${process.env.VITE_DISCORD_CLIENT_ID}/${token}`, {
+    const payload = {
+        content: "🧩 **Connections Grid**",
+        components: [{
+            type: 1,
+            components: [{
+                type: 2,
+                style: 5, // Link Button
+                label: "Play Now",
+                url: `https://discord.com/activities/${process.env.VITE_DISCORD_CLIENT_ID}`
+            }]
+        }]
+    };
+    formData.append('payload_json', JSON.stringify(payload));
+
+    // 2. Logic: POST if no message exists, PATCH if it does
+    const lastMessageId = userSession?.lastMessageId;
+
+    if (!lastMessageId) {
+        // --- NEW MESSAGE ---
+        // Add ?wait=true to the URL so Discord returns the message ID
+        const response = await fetch(`${webhookURL}?wait=true`, {
             method: 'POST',
             body: formData
         });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Discord Webhook failed: ${errorText}`);
-        }
-
-        // Webhooks often return 204 No Content, so we need to check before parsing JSON
-        if (response.status === 204) return null; 
-        
         const data = await response.json();
+        
+        // SAVE data.id back to your userSessions.json here!
         return data.id; 
-    } 
-    else if (messageId) {
-        formData.append('payload_json', JSON.stringify({
-            attachments: [{ id: 0, filename: fileName }]
-        }));
-
-        const response = await fetch(`https://discord.com/api/v10/channels/${channel_ID}/messages/${messageId}`, {
+    } else {
+        // --- EDIT EXISTING MESSAGE ---
+        // Webhooks edit via: [URL]/messages/[ID]
+        const response = await fetch(`${webhookURL}/messages/${lastMessageId}`, {
             method: 'PATCH',
-            headers: {
-                'Authorization': `Bot ${process.env.DISCORD_TOKEN}`
-            },
             body: formData
         });
-
         return await response.json();
     }
 }
@@ -70,11 +73,11 @@ export async function generateGrid(userID) {
     const history = currentEntry.gameProgressforDate.history;
     const currentPuzzle = gameData[gameData.length - 1];
 
-    const canvas = createCanvas(320, 320);
+    const canvas = createCanvas(400, 600);
     const ctx = canvas.getContext('2d');
     
     ctx.fillStyle = '#302b2b';
-    ctx.fillRect(0, 0, 320, 320);
+    ctx.fillRect(0, 0, 600, 400);
 
     const colorMap = {
         0: "#f9df6d", // Yellow
@@ -110,3 +113,4 @@ export async function generateGrid(userID) {
 
     return canvas.toBuffer('image/png');
 }
+
