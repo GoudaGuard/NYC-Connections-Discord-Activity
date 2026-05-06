@@ -2,6 +2,7 @@ import fs from "fs";
 import dotenv from "dotenv";
 import gameData from './connections.json' with { type: 'json' };
 import {processGridUpdate} from './image_gen.js'
+//import { addBotToGroupDM } from "./tester.js";
 
 dotenv.config({ path: "./.env", override: true });
 const SESSION_FILE = './userSessions.json';
@@ -31,14 +32,17 @@ export const getToken = async (code) => {
             console.log("client secret ", process.env.DISCORD_CLIENT_SECRET, "Client id", process.env.VITE_DISCORD_CLIENT_ID);
             throw new Error(data.error_description || "Failed to get token");
         }
-        console.log(data.access_token);
-        /*
-        console.log(data.webhook.url);
-        if(data.webhook){
-            console.log("Received Webhook URL:", data.webhook.url);
-            return {access_token: data.access_token, webhookURL: data.webhook.url};
-        }
-        */
+        console.log("User Access Token: ", data.access_token);
+
+        const tokenInfo = await fetch("https://discord.com/api/v10/oauth2/@me", {
+            headers: { Authorization: `Bearer ${data.access_token}` }
+            });
+            const info = await tokenInfo.json();
+            console.log("Token scopes:", info.scopes);
+            console.log("Token info:", JSON.stringify(info, null, 2));
+        
+
+
         return data.access_token;
     } catch (err) {
         console.error("Token Exchange Error:", err);
@@ -205,3 +209,34 @@ const getDailySeed = () => {
     const d = new Date();
     return (d.getFullYear() * 10000) + ((d.getMonth() + 1) * 100) + d.getDate();
 };
+
+
+export async function addBotToGroupDM(channel_id, access_token) {
+        //const channel_id = '1479202875438665828';
+  
+  
+        console.log("APP_ID value:", APP_ID); // ← add this
+        console.log("access_token:", access_token); // ← and this
+        const channelInfo = await fetch(`https://discord.com/api/v10/channels/${channel_id}`, {
+        headers: { Authorization: `Bearer ${access_token}` }
+        });
+        const info = await channelInfo.json();
+        console.log("Channel type:", info.type);
+        //const userAccessToken = 'MTQ2ODAyNzEzNjYyMjQ2NTI1MA.LdT6GIjUqidOLYO3XUsJbVeExcnury'
+    const response = await fetch(
+        `https://discord.com/api/v10/channels/${channel_id}/recipients/${APP_ID}`,
+        {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${access_token}`, // user token, NOT bot token
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            access_token: access_token,
+        }),
+        }
+    );
+    const data = await response.status;
+        console.log("Response for http request to add Bot: ", data);
+
+        }

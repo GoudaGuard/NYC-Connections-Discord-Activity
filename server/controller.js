@@ -92,7 +92,7 @@ export const interactionVerify = async(req, res) => {
         return res.send({ type: 1 });
     }
 
-    if (interaction.type === 2) {
+    if (interaction.type === 2 || interaction.type === 3) {
         const token = interaction.token;
         const application_ID = interaction.application_id;
         const channel_ID =  interaction.channel_id;

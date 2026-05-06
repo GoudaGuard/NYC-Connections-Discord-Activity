@@ -27,8 +27,8 @@ function ConnectionsGrid() {
       try {
         await discordSdk.ready();
         console.log("Discord SDK is ready");
-        // Get the channel ID directly from the SDK environment
-        channelID = discordSdk.channelId;
+ 
+        
 
 
         const { code } = await discordSdk.commands.authorize({
@@ -36,7 +36,7 @@ function ConnectionsGrid() {
           response_type: "code",
           state: "",
           prompt: "none",
-          scope: ["identify", "guilds", "applications.commands"], //Temporarily Moved Webhook out
+          scope: ["identify", "applications.commands", "gdm.join"], //Temporarily Moved Webhook out
           
         });
 
@@ -53,8 +53,12 @@ function ConnectionsGrid() {
         const auth = await discordSdk.commands.authenticate({
           access_token: globalAccessToken,
         });
-
-        if (auth == null) {
+        const channel = await discordSdk.commands.getChannel({
+          channel_id: discordSdk.channelId,
+        });
+        console.log("Real channel:", channel);
+        console.log("Channel type:", channel.type);
+          if (auth == null) {
           throw new Error("Authenticate command failed");
         }
         
@@ -69,7 +73,7 @@ function ConnectionsGrid() {
     setupDiscord();
   }, []);
 
-  // 2. Load game data ONLY AFTER Discord is ready
+
   useEffect(() => {
     if (!isReady) return;
 

@@ -42,7 +42,7 @@ const register = async () => {
     console.dir(data, { depth: null });
 };
 
-register();
+//register();
 
 async function testWebHook(){
     const response = await fetch(webhookURL, {
@@ -64,4 +64,54 @@ async function testWebHook(){
         console.dir(data, { depth: null });
     }
 
-checkCommand();
+//checkCommand();
+
+
+async function testBotMessage(){
+    const channel_id = '1479202875438665828';
+    const message_id = '1479210470429692064';
+
+
+    const response = await fetch(`https://discord.com/api/v10/channels/${channel_id}/messages/${message_id}`,{
+        method: "DELETE",
+        headers:{
+            Authorization: `Bot ${BOT_TOKEN}`,
+            
+        },
+        
+    });
+    const data = await response.json();
+    console.log("Response for http request to delete discord message: ", data);
+}
+//testBotMessage();
+/*
+export async function addBotToGroupDM(channel_id, access_token) {
+        //const channel_id = '1479202875438665828';
+  
+  
+        console.log("APP_ID value:", APP_ID); // ← add this
+        console.log("access_token:", access_token); // ← and this
+        const channelInfo = await fetch(`https://discord.com/api/v10/channels/${channel_id}`, {
+        headers: { Authorization: `Bearer ${access_token}` }
+        });
+        const info = await channelInfo.json();
+        console.log("Channel type:", info.type);
+        //const userAccessToken = 'MTQ2ODAyNzEzNjYyMjQ2NTI1MA.LdT6GIjUqidOLYO3XUsJbVeExcnury'
+    const response = await fetch(
+        `https://discord.com/api/v10/channels/${channel_id}/recipients/${APP_ID}`,
+        {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${access_token}`, // user token, NOT bot token
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            access_token: access_token,
+        }),
+        }
+    );
+    const data = await response.status;
+        console.log("Response for http request to add Bot: ", data);
+
+        }
+*/

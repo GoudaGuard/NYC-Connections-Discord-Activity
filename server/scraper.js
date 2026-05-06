@@ -12,13 +12,13 @@ const SESSION_FILE = path.join(__dirname, 'connections.json');
 dotenv.config({ path: "./.env", override: true });
 
 
-console.log("All available keys:", Object.keys(process.env).filter(key => key.includes('BOT')));
+//console.log("All available keys:", Object.keys(process.env).filter(key => key.includes('BOT')));
 
 const DEVWEBHOOK= process.env.BOT_CHANNEL_WEBHOOK?.trim();
-console.log("Webhook URL Length:", DEVWEBHOOK?.length);
-console.log("Webhook starts with https:", DEVWEBHOOK?.startsWith('https'));
+//console.log("Webhook URL Length:", DEVWEBHOOK?.length);
+//console.log("Webhook starts with https:", DEVWEBHOOK?.startsWith('https'));
 
-console.log(DEVWEBHOOK);
+//console.log(DEVWEBHOOK);
 const maxAttempts = 3;
 let currentAttempts=0;
 const attemptDelay=120000;
@@ -48,8 +48,8 @@ async function scrapeConnections(){
     latestPuzzle.date=  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     
 
-    console.log(connections[connections.length-1].date);
-    console.log(latestPuzzle.date);
+    //console.log(connections[connections.length-1].date);
+    //console.log(latestPuzzle.date);
     if(connections && connections[connections.length-1].date === latestPuzzle.date){
         console.log("Puzzle Already stored in Datebase, Exiting Now");
         return;
@@ -72,6 +72,14 @@ async function scrapeConnections(){
     fs.writeFileSync(SESSION_FILE, JSON.stringify(connections, null, 2));
     currentAttempts=0;
     console.log("Pushed latest puzzle into Connections database");
+
+    const confirmation = await fetch(DEVWEBHOOK,{
+                    method: "POST",
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({content:"Latest Scrape was Successful"})
+                });
 
     }
     catch(error){
